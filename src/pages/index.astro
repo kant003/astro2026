@@ -1,0 +1,35 @@
+---
+import Button from "../components/Button.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+// se ejecuta en el servidor/backend
+const nombre = "Angel"
+const favoritos = ["Comer", "Dormir", "Programar"]
+//bd
+---
+<!-- Se ejecuta en el cliente/fronted -->
+
+<script>
+	const valor = 5
+	// bd
+</script>
+
+<style>
+h1 {
+	color: #4f4f4f;
+	text-align: center;
+	font-size: xx-large;
+}
+</style>
+
+
+<BaseLayout>
+	<h1>Mi primera pagina de astro</h1>
+	<p>Yo me llamo {nombre}</p>
+	<h2>Hobbies</h2>
+	<ul>
+		{favoritos.map( (favorito) => <li>{favorito}</li>)}
+	</ul>
+	<Button title="Tócame">Tócame</Button>
+	
+</BaseLayout>

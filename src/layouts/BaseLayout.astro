@@ -1,0 +1,35 @@
+---
+import { ClientRouter } from "astro:transitions";
+import Menu from "../components/Menu.astro";
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <ClientRouter/>
+</head>
+<body>
+    <header>
+        <Menu/>
+    </header>
+
+    <slot/>
+    
+</body>
+</html>
+
+<style>
+    body{
+        font-family: sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    
+    header{
+        padding: 10px;
+        text-align: center;
+    }
+</style>

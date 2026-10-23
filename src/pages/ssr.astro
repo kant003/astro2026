@@ -1,0 +1,13 @@
+---
+export const prerender = false // Esto activa el SSR
+import BaseLayout from "../layouts/BaseLayout.astro";
+const productos = ['Manzanas','Peras','Platanos']
+const fechahora = new Date().toLocaleString('es-ES')
+---
+<BaseLayout>
+    <h1>Lista de productos usando SSR</h1>
+    <p>Fecha y hora: {fechahora}</p>
+    <ul>
+       { productos.map(p=><li>{p}</li>)  }
+    </ul>
+</BaseLayout>

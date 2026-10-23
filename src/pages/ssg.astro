@@ -1,0 +1,16 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const productos = ['Portatil', 'Raton', 'Teclado']
+const fechahora = new Date().toLocaleString('es-ES')
+---
+<BaseLayout>
+    <h1>Lista de productos usando SSG</h1>
+
+    <p>Fecha y hora: {fechahora}</p>
+    <span>Esta fecha se calcula cuando ocurre el build</span>
+
+    <ul>
+        {productos.map(p=> <li>{p}</li>)}
+    </ul>
+</BaseLayout>
