@@ -9,7 +9,6 @@ const posts = await getCollection('posts')
     <h1>Lista de todos los posts2</h1>
     <ul>
         {posts.map(post => <li>
-            
             <a href={'/blog/'+post.id}>{post.data.titulo}</a>
         </li>)}
     </ul>
