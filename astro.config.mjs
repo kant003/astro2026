@@ -8,6 +8,7 @@ import react from '@astrojs/react';
 import mdx from '@astrojs/mdx';
 
 import node from '@astrojs/node';
+// npx astro add node
 
 // https://astro.build/config
 export default defineConfig({
@@ -17,5 +18,5 @@ export default defineConfig({
 
   integrations: [react(), mdx()],
 
-  adapter: node({ mode: 'standalone' }),
+  adapter: node({ mode: 'standalone' })
 });
