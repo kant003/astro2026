@@ -16,9 +16,6 @@ export default defineConfig({
   },
 
   integrations: [react(), mdx()],
-  output: "server",
 
-  adapter: node({
-    mode: 'standalone'
-  })
+  adapter: node({ mode: 'standalone' }),
 });
