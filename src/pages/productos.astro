@@ -1,0 +1,71 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { listarProductos, type Producto } from '../lib/db';
+
+export const prerender = false;
+
+let productos: Producto[] = [];
+let error = false;
+
+try {
+    productos = await listarProductos();
+} catch (cause) {
+    console.error('No se pudieron consultar los productos de MySQL:', cause);
+    Astro.response.status = 503;
+    error = true;
+}
+
+const euros = new Intl.NumberFormat('es-ES', {
+    style: 'currency',
+    currency: 'EUR',
+});
+---
+
+<BaseLayout>
+    <main>
+        <h1>Productos</h1>
+        <p>Listado de productos guardados en la base de datos MySQL.</p>
+
+        {error ? (
+            <p role="alert">No se pudieron cargar los productos. Inténtalo de nuevo más tarde.</p>
+        ) : productos.length === 0 ? (
+            <p>No hay productos guardados todavía.</p>
+        ) : (
+            <div class="tabla">
+                <table>
+                    <caption>{productos.length} productos encontrados</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Descripción</th>
+                            <th scope="col">Precio</th>
+                            <th scope="col">Stock</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {productos.map((producto) => (
+                            <tr>
+                                <td>{producto.id}</td>
+                                <th scope="row">{producto.nombre}</th>
+                                <td>{producto.descripcion}</td>
+                                <td>{euros.format(Number(producto.precio))}</td>
+                                <td>{producto.stock === 0 ? 'Agotado' : producto.stock}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        )}
+    </main>
+</BaseLayout>
+
+<style>
+    main { max-width: 1000px; margin: 2rem auto; padding: 0 1rem; }
+    .tabla { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; }
+    caption { text-align: left; padding: 1rem 0; }
+    th, td { padding: 0.8rem; text-align: left; border-bottom: 1px solid #ddd; }
+    thead { background: #f3f0ff; }
+    [role='alert'] { color: #a31515; }
+</style>
